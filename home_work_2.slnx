@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="domashka_5/domashka_5.csproj" />
+  <Project Path="domashka_6/domashka_6.csproj" Id="0697cb1a-a74c-4ba1-8fea-6857cb9fcc25" />
   <Project Path="random_number/random_number.csproj" />
 </Solution>
