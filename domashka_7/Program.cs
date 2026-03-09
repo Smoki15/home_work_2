@@ -4,80 +4,99 @@ using System.Collections.Generic;
 
 class Unit
 {
-    public string Name;
-    public int HP;
-    public int Attack;
+    public string Name { get; set; }
+    public int HP { get; set; }
+    public int Attack { get; set; }
+
+    public void AttackUnit(Unit enemy)
+    {
+        enemy.HP = -Attack;
+        Console.WriteLine(Name + "attacked" + enemy.Name);
+    }
+
+    public bool IsAlive()
+    {
+        return HP > 0;
+    }
 }
 
-class Warrior : Unit { }
-class Archer : Unit { }
+class Warrior : Unit 
+{ 
+    public Warrior(string name)
+    {
+        Name = name;
+        HP = 300;
+        Attack = 130;
+    }
+}
+class Archer : Unit 
+{
+    public Archer(string name)
+    {
+        Name = name;
+        HP = 400;
+        Attack = 150;
+    }
+}
+
+class Battle
+{
+    public List<Unit> Army1 = new List<Unit>();
+    public List<Unit> Army2 = new List<Unit>();
+
+    public void Start()
+    {
+        Random rand = new Random();
+
+        while (Army1.Count > 0 && Army2.Count > 0)
+        {
+            Unit u1 = Army1[0];
+            Unit u2 = Army2[0];
+
+            if (rand.Next(2) == 0)
+            {
+                u1.AttackUnit(u2);
+
+                if (!u2.IsAlive())
+                {
+                    Console.WriteLine(u2.Name + " dead");
+                    Army2.RemoveAt(0);
+                }
+            }
+            else
+            {
+                u2.AttackUnit(u1);
+
+                if (!u1.IsAlive())
+                {
+                    Console.WriteLine(u1.Name + " dead");
+                    Army1.RemoveAt(0);
+                }
+            }
+        }
+
+        if (Army1.Count > 0)
+            Console.WriteLine("Win Army1");
+        else
+            Console.WriteLine("Win Army2");
+    }
+
+}
 
 class Program
 {
     static void Main()
     {
-        List<Unit> army1 = new List<Unit>();
-        List<Unit> army2 = new List<Unit>();
+        Battle battle = new Battle();
 
-        Warrior w1 = new Warrior();
-        w1.Name = "warrior_one";
-        w1.HP = 200;
-        w1.Attack = 120;
-        army2.Add(w1);
+        battle.Army1.Add(new Archer("Archer_one"));
+        battle.Army1.Add(new Warrior("Warrior_two"));
 
-        Archer a1 = new Archer();
-        a1.Name = "Archer_one";
-        a1.HP = 400;
-        a1.Attack = 150;
-        army1.Add(a1);
+        battle.Army2.Add(new Warrior("Warrior_one"));
+        battle.Army2.Add(new Archer("Archer_two"));
 
-        Warrior w2 = new Warrior();
-        w2.Name = "Warrior_two";
-        w2.HP = 300;
-        w2.Attack = 135;
-        army1.Add(w2);
+        battle.Start();
 
-        Archer a2 = new Archer();
-        a2.Name = "Archer_two";
-        a2.HP = 450;
-        a2.Attack = 200;
-        army2.Add(a2);
-
-        Random rand = new Random();
-
-        while (army1.Count > 0 && army2.Count > 0)
-        {
-            Unit u1 = army1[0];
-            Unit u2 = army2[0];
-
-            if(rand.Next(2) == 0)
-            {
-                u2.HP -= u1.Attack;
-                Console.WriteLine(u1.Name + " Attacked " + u2.Name);
-
-                if(u2.HP < 0)
-                {
-                    Console.WriteLine(u2.Name + " dead ");
-                    army2.RemoveAt(0);
-                }
-            }
-            else
-            {
-                u1.HP -= u2.Attack;
-                Console.WriteLine(u2.Name + " attacked " + u1.Name);
-
-                if(u1.HP < 0)
-                {
-                    Console.WriteLine(u1.Name + " dead ");
-                    army1.RemoveAt(0);
-                }
-            }
-        }
-
-        if (army1.Count > 0)
-            Console.WriteLine("Win army1");
-        else
-            Console.WriteLine("Win army2");
     }
 }
 
