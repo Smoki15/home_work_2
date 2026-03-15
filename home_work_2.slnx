@@ -3,5 +3,6 @@
   <Project Path="domashka_6/domashka_6.csproj" Id="0697cb1a-a74c-4ba1-8fea-6857cb9fcc25" />
   <Project Path="domashka_7/domashka_7.csproj" Id="90d219ee-3ae7-40f6-a251-5e5ce85af96c" />
   <Project Path="domashka_8/domashka_8.csproj" Id="f1226309-8fa7-44a3-a193-b8b18946ee93" />
+  <Project Path="domashka_9/domashka_9.csproj" Id="894fd417-3b5a-4d72-9868-f254c6144b99" />
   <Project Path="random_number/random_number.csproj" />
 </Solution>
